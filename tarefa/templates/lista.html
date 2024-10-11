@@ -1,0 +1,141 @@
+{% block content %}
+
+<!-- CSS customizado -->
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f8ff;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1 {
+    text-align: center;
+    color: #ffffff; /* Título em branco */
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: fadeInDown 1s ease-in-out;
+  }
+
+  .task-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #000000; /* Fundo preto para o container */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2); /* Sombra leve branca */
+    animation: fadeIn 1s ease-in-out;
+    max-height: 400px; /* Altura máxima para o container */
+    overflow-y: auto; /* Barra de rolagem vertical */
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  ul li {
+    background-color: #ffffff; /* Retângulos com tarefas na cor branca */
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    color: #333333; /* Texto escuro para contraste */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    animation: fadeInUp 0.5s ease-in-out;
+  }
+
+  ul li:hover {
+    background-color: #f0f0f0; /* Cor um pouco mais clara ao passar o mouse */
+    transform: translateY(-5px);
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  button {
+    background-color: #1e88e5; /* Botão azul claro */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-bottom: 20px;
+    display: block;
+    margin: 20px auto;
+    animation: fadeIn 0.6s ease-in-out;
+  }
+
+  button:hover {
+    background-color: #1976d2; /* Azul mais escuro no hover */
+    transform: translateY(-5px);
+  }
+
+  p {
+    text-align: center;
+    color: #ffffff; /* Texto branco */
+    font-size: 1.1rem;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<!-- Conteúdo HTML -->
+<div class="task-container">
+    <h1>Lista de Tarefas</h1>
+    
+    <button type="button">
+        <a href="{% url 'nova' %}" style="color: white;">Nova Tarefa</a>
+    </button>
+
+    <ul>
+        {% if tarefas %}
+        {% for tarefa in tarefas %}
+        <a href="{% url 'deletar' tarefa.pk %}">
+            <li>{{ tarefa.nome_tarefa }}</li>
+        </a>
+        {% endfor %}
+        {% else %}
+            <p>Nenhuma tarefa encontrada.</p>        
+        {% endif %}
+    </ul>
+</div>
+
+{% endblock %}
